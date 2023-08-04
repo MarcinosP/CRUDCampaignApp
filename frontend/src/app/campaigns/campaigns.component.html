@@ -1,0 +1,18 @@
+<div class="campaign-main">
+  <div class="campaign-content">
+    <button
+      mat-raised-button
+      color="primary"
+      class="campaign-main-add-new-button"
+      (click)="addNewCapaignButton()"
+    >
+      Add New Campaign
+    </button>
+    <div class="campaign-main-table">
+      <app-campaigns-table
+        [getCampaigns]="getCampaigns"
+        [dataSource]="dataSource"
+      ></app-campaigns-table>
+    </div>
+  </div>
+</div>

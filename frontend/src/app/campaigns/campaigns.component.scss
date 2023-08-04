@@ -1,0 +1,17 @@
+.campaign-main{
+    background-color: #383434;
+    height: 100vh;
+    width: 100vw;
+}
+
+.campaign-content{
+    width: 70vw;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.campaign-main-add-new-button{
+    align-self: flex-start;
+    margin: 1vh 0 1vh 0;
+}
