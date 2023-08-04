@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { CampaignService } from '../campaign.service';
 import { ICampaign } from '../interfaces/campaign';
@@ -13,10 +14,11 @@ import { CampaignFormComponent } from '../campaign-form/campaign-form.component'
 })
 export class CampaignsComponent implements OnInit {
   dataSource: MatTableDataSource<ICampaign> = new MatTableDataSource();
-
+  towns: any[] = [];
   constructor(
     private campaignService: CampaignService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +34,15 @@ export class CampaignsComponent implements OnInit {
         console.error(error);
       }
     );
+
+    this.campaignService.getTowns().subscribe(
+      (data: any) => {
+        this.towns = data;
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
   }
 
   addNewCapaignButton(): void {
@@ -42,15 +53,23 @@ export class CampaignsComponent implements OnInit {
     const dialogRef = this.dialog.open(CampaignFormComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.campaignService.addCampaign(result).subscribe({
-        next: (updatedCampaign) => {
-          console.log('Campaign created successfully:', updatedCampaign);
-          this.getCampaigns();
-        },
-        error: (err) => {
-          console.error('Error updating campaign:', err);
-        },
-      });
+      if (result) {
+        this.campaignService.addCampaign(result).subscribe({
+          next: (updatedCampaign) => {
+            this.openSnackBar('Added new Campaign successfully');
+            this.getCampaigns();
+          },
+          error: (err) => {
+            this.openSnackBar('error:' + err);
+          },
+        });
+      }
+    });
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 4000,
     });
   }
 }

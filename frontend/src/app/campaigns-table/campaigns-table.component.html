@@ -36,7 +36,7 @@
 
     <ng-container matColumnDef="town">
       <th mat-header-cell *matHeaderCellDef>Town</th>
-      <td mat-cell *matCellDef="let campaign">{{ campaign.town }}</td>
+      <td mat-cell *matCellDef="let campaign">{{ campaign.town.name }}</td>
     </ng-container>
 
     <ng-container matColumnDef="radius">

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { CampaignService } from '../campaign.service';
 import { ICampaign } from '../interfaces/campaign';
@@ -29,7 +30,8 @@ export class CampaignsTableComponent implements OnInit {
 
   constructor(
     private campaignService: CampaignService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}
@@ -41,11 +43,11 @@ export class CampaignsTableComponent implements OnInit {
   deleteCampaignButton(campaign: ICampaign): void {
     this.campaignService.deleteCampaign(campaign.id).subscribe({
       next: () => {
-        console.log('Campaign deleted successfully');
+        this.openSnackBar('Deleted Campaign successfully');
         this.getCampaigns();
       },
       error: (err) => {
-        console.error('Error deleting campaign:', err);
+        this.openSnackBar('error:' + err);
       },
     });
   }
@@ -56,17 +58,23 @@ export class CampaignsTableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (campaign) {
+      if (campaign && result) {
         this.campaignService.updateCampaign(campaign.id, result).subscribe({
           next: (updatedCampaign) => {
-            console.log('Campaign updated successfully:', updatedCampaign);
+            this.openSnackBar('Updated Campaign successfully');
             this.getCampaigns();
           },
           error: (err) => {
-            console.error('Error updating campaign:', err);
+            this.openSnackBar('error:' + err);
           },
         });
       }
+    });
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 4000,
     });
   }
 }

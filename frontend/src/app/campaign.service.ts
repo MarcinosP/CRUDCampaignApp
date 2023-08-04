@@ -26,4 +26,8 @@ export class CampaignService {
     console.log('first');
     return this.http.put(`${this.baseUrl}/${id}/`, campaign);
   }
+
+  getTowns(): Observable<any> {
+    return this.http.get('http://localhost:8000/api/towns/');
+  }
 }
