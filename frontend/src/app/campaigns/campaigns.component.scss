@@ -1,5 +1,4 @@
 .campaign-main{
-    background-color: #383434;
     height: 100vh;
     width: 100vw;
 }
@@ -15,3 +14,9 @@
     align-self: flex-start;
     margin: 1vh 0 1vh 0;
 }
+
+@media only screen and (max-width: 900px) {
+    .campaign-content{
+        width: 100vw;
+    }
+  }

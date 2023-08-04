@@ -1,2 +1,7 @@
-html, body { height: 100%; }
+html, body { 
+    height: 100%; 
+    background-color: #383434;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
