@@ -35,7 +35,10 @@ export class CampaignFormComponent {
     this.form = this.fb.group({
       name: [this.data?.campaign?.name || '', Validators.required],
       keywords: [this.data?.campaign?.keywords || '', Validators.required],
-      bid_amount: [this.data?.campaign?.bid_amount || '', Validators.required],
+      bid_amount: [
+        this.data?.campaign?.bid_amount || '',
+        [Validators.required, Validators.min(0)],
+      ],
       campaign_fund: [
         this.data?.campaign?.campaign_fund || '',
         Validators.required,
