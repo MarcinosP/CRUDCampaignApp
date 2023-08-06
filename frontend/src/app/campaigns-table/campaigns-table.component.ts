@@ -37,7 +37,6 @@ export class CampaignsTableComponent implements OnInit {
   ngOnInit(): void {}
 
   updateCampaignButton(campaign: any): void {
-    console.log(campaign);
     this.openCampaignForm(campaign);
   }
 

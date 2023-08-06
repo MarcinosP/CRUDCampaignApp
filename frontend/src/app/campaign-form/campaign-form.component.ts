@@ -25,7 +25,6 @@ export class CampaignFormComponent {
     this.campaignService.getTowns().subscribe(
       (data: any) => {
         this.towns = data;
-        console.log(this.towns);
       },
       (error: any) => {
         console.error(error);
