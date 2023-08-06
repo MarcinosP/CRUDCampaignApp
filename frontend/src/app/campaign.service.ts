@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ICampaign } from './interfaces/campaign';
 
 @Injectable({
   providedIn: 'root',
@@ -11,21 +12,20 @@ export class CampaignService {
 
   constructor(private http: HttpClient) {}
 
-  getCampaigns(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/`);
+  getCampaigns(): Observable<ICampaign[]> {
+    return this.http.get<ICampaign[]>(`${this.baseUrl}/`);
   }
 
-  addCampaign(campaign: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/`, campaign);
+  addCampaign(campaign: ICampaign): Observable<ICampaign> {
+    return this.http.post<ICampaign>(`${this.baseUrl}/`, campaign);
   }
 
-  deleteCampaign(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}/`);
+  deleteCampaign(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}/`);
   }
 
-  updateCampaign(id: number, campaign: any): Observable<any> {
-    console.log('first');
-    return this.http.put(`${this.baseUrl}/${id}/`, campaign);
+  updateCampaign(id: number, campaign: ICampaign): Observable<ICampaign> {
+    return this.http.put<ICampaign>(`${this.baseUrl}/${id}/`, campaign);
   }
 
   getTowns(): Observable<any> {
