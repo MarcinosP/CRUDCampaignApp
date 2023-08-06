@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CampaignService {
-  private baseUrl = 'http://localhost:8000/api/campaigns';
+  private baseUrl =
+    'https://backendcrudapp-d601ede88853.herokuapp.com/api/campaigns';
 
   constructor(private http: HttpClient) {}
 
@@ -28,6 +29,8 @@ export class CampaignService {
   }
 
   getTowns(): Observable<any> {
-    return this.http.get('http://localhost:8000/api/towns/');
+    return this.http.get(
+      'https://backendcrudapp-d601ede88853.herokuapp.com/api/towns/'
+    );
   }
 }
